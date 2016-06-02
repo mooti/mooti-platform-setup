@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#exit on first error
+set -e
+
+DIR=$(/usr/bin/dirname $0)
+ROOT_DIR=$(/bin/bash -c "cd $DIR/..; /bin/pwd")
+
+cd $ROOT_DIR
+
+GIT_URL=`git config --get remote.origin.url`
+
+mkdir -p build
+cd build/
+rm -fr *
+git clone $GIT_URL mooti-setup
+cd repo/
+VERSION=`git describe --abbrev=0 --tags`
+git checkout $VERSION
+echo $VERSION > version.txt
+rm -fr .git .gitignore bin/build-phar bin/build
+cd ..
+php -d phar.readonly=0 build-phar

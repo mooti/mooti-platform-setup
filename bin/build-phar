@@ -1,0 +1,16 @@
+#!/usr/bin/env php
+<?php
+
+$currentDir = getcwd();
+
+// create with alias "project.phar"
+$phar = new Phar('mooti-setup.phar', 0, 'mooti-setup.phar');
+// add all files in the project
+$phar->buildFromDirectory(currentDir . '/mooti-setup');
+
+$defaultStub = $phar->createDefaultStub('bin/platform-setup');
+
+// Create a custom stub to add the shebang
+$stub = "#!/usr/bin/env php \n".$defaultStub;
+
+$phar->setStub($stub);
