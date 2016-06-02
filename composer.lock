@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4929c1760d10d89b24f9c88a7f6644d1",
-    "content-hash": "8c767d96803f8bc3ada30203b8a819e3",
+    "hash": "282c2a153ded9cf77097cea55da6e2e2",
+    "content-hash": "81778b9be51f97ee0dc6bdbd9ae9043f",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -286,16 +286,16 @@
         },
         {
             "name": "mooti/framework",
-            "version": "0.0.8",
+            "version": "0.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mooti/framework.git",
-                "reference": "657d697423aca7dd5cce58b85d7b719189c5952a"
+                "reference": "078da6699c5c6c7ac4e5a3d36751d645ad8aa93e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mooti/framework/zipball/657d697423aca7dd5cce58b85d7b719189c5952a",
-                "reference": "657d697423aca7dd5cce58b85d7b719189c5952a",
+                "url": "https://api.github.com/repos/mooti/framework/zipball/078da6699c5c6c7ac4e5a3d36751d645ad8aa93e",
+                "reference": "078da6699c5c6c7ac4e5a3d36751d645ad8aa93e",
                 "shasum": ""
             },
             "require": {
@@ -328,7 +328,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2016-05-12 09:21:46"
+            "time": "2016-06-02 15:15:07"
         },
         {
             "name": "mooti/validator",

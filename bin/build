@@ -14,10 +14,10 @@ mkdir -p build
 cd build/
 rm -fr *
 git clone $GIT_URL mooti-setup
-cd repo/
+cd mooti-setup/
 VERSION=`git describe --abbrev=0 --tags`
 git checkout $VERSION
 echo $VERSION > version.txt
 rm -fr .git .gitignore bin/build-phar bin/build
 cd ..
-php -d phar.readonly=0 build-phar
+#php -d phar.readonly=0 build-phar

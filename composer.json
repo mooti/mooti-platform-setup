@@ -14,7 +14,7 @@
         "php": ">=5.5.9",        
         "symfony/console": "^3.0",
         "symfony/process": "^3.0",
-        "mooti/framework": "^0.0.8"
+        "mooti/framework": "^0.0.9"
     },
     "require-dev": {
         "phpunit/phpunit": "5.1.*",
