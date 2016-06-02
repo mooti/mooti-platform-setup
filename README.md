@@ -1,0 +1,1 @@
+# mooti-platform-setup
