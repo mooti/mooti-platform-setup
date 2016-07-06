@@ -67,7 +67,7 @@ class SetupPlatformCommand extends Command
         $command = 'curl -o platform.zip -L '.$downloadUrl;
         $this->runCommand($command, $output);
 
-        $command = 'rm -fr platform && unzip platform.zip && rm platform.zip';
+        $command = 'rm -fr platform && unzip platform.zip && rm platform.zip && ln -s ../.vagrant platform/.vagrant';
         $this->runCommand($command, $output);
 
         $output->writeln('done');
