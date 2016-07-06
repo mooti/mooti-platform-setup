@@ -15,8 +15,8 @@ class SetupPlatformCommand extends Command
 
     protected $isDefaultCommand = true;
 
-    const LATEST_RELEASE = 'tags/0.0.7';
-    const RELEASE_URL    =  'https://api.github.com/repos/mooti/platform/releases';
+    const LATEST_RELEASE_PATH = 'tags/0.0.11';
+    const RELEASE_URL         =  'https://api.github.com/repos/mooti/platform/releases';
 
     protected function configure()
     {
@@ -26,11 +26,6 @@ class SetupPlatformCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $latestRelease = self::LATEST_RELEASE;
-        $releaseUrl    = self::RELEASE_URL;
-
-        $output->writeln($latestRelease);
-
         $fileSystem = $this->createNew(FileSystem::class);
         $curDir = $fileSystem->getCurrentWorkingDirectory();
 
@@ -42,21 +37,37 @@ class SetupPlatformCommand extends Command
         }
 
         if ($platformConfig) {
-            $currentRelease = 'tags/'.$platformConfig['platform']['version'];
+            $installReleasePath = 'tags/'.$platformConfig['platform']['version'];
         } else {
-            $currentRelease = $latestRelease;
+            $installReleasePath = self::LATEST_RELEASE_PATH;
         }
 
-        $currentReleaseUrl = $releaseUrl . '/' . $currentRelease;
+        $releaseUrl        = self::RELEASE_URL;
+        $currentReleaseUrl = $releaseUrl . '/' . $installReleasePath;
 
-        $relaseDetails = $this->getReleaseDetails($currentReleaseUrl);
-        
-        $downloadUrl = $relaseDetails->assets[0]->browser_download_url;
+        $releaseDetails = $this->getReleaseDetails($currentReleaseUrl);
+
+        $versionFile = $curDir.'/platform/version.txt';
+        try {
+            $currentVersion = trim($fileSystem->fileGetContents($versionFile));
+        } catch (FileSystemException $e) {
+            $currentVersion = '';
+        }
+
+        $releaseVersion = $releaseDetails->tag_name;
+        if (!empty($currentVersion) && version_compare($currentVersion, $releaseVersion) == 0) {
+            $output->writeln('Current version ('.$currentVersion.') already up to date');
+            return;
+        }
+
+        $output->writeln('Installing version '.$releaseVersion);
+
+        $downloadUrl = $releaseDetails->assets[0]->browser_download_url;
 
         $command = 'curl -o platform.zip -L '.$downloadUrl;
         $this->runCommand($command, $output);
 
-        $command = 'unzip platform.zip && rm platform.zip';
+        $command = 'rm -fr platform && unzip platform.zip && rm platform.zip';
         $this->runCommand($command, $output);
 
         $output->writeln('done');

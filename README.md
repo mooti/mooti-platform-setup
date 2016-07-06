@@ -28,6 +28,27 @@ To setup your project simply go into your project directory and run the applicat
 $ cd my-project && mooti-setup.phar
 ```
 
+Start your virtual machine and log into it
+
+```
+$ cd platform
+$ vagrant up
+$ vagrant ssh
+```
+
+Your project is located in the `/mooti` directory. If you using git then make sure you ininitalise your project and create a git ignore file to ignore the platform directory:
+
+```
+$ cd /mooti
+$ git init
+$ echo /platform/ > .gitignore
+$ git config --global user.email "you@example.com"
+$ git config --global user.name "Your Name"
+$ git commit -m "my first commit"
+$ mooti-platform-admin project:init
+```
+
+
 ### Clone the repo
 
 To clone the repo. Use the following:
